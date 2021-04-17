@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous">
+    </script>
+
+    <!--enroll-->
+    <script>
+        $(document).ready(function() {
+           $("#addService").click(function() {
+                var value = $("#idInput").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/enroll",
+                    data: value,
+                    contentType: 'application/json; charset=utf-8',
+                    success: (result, _, __) => {
+                        alert('Enroll successful.')
+                    }
+                })
+           })
+        })
+    </script>
+
+    <!--services-->
+    <script>
+        let service1Id;
+        let service2Id;
+        let service3Id;
+        let hideShow = 0;
+        $(document).ready(function () {
+            $("#showServices").click(function() {
+                $.get("/services", function(data, _) {
+                    service1Id = data[0]['id'];
+                    service2Id = data[1]['id'];
+                    service3Id = data[2]['id'];
+                    $("#service1").html(data[0]['name'] + ' id: ' + data[0]['id'] + ' ' + data[0]['description'])
+                    $("#service2").html(data[1]['name'] + ' id: ' + data[1]['id'] + ' ' + data[1]['description'])
+                    $("#service3").html(data[2]['name'] + ' id: ' + data[2]['id'] + ' ' + data[2]['description'])
+
+                    if(hideShow === 0){
+                        $("#service1").show();
+                        $("#service2").show();
+                        $("#service3").show();
+                        hideShow = 1;
+                    }else if(hideShow === 1){
+                        $("#service1").hide();
+                        $("#service2").hide();
+                        $("#service3").hide();
+                        hideShow = 0;
+                    }
+                })
+            })
+        })
+    </script>
+
+    <!--board-->
+    <script>
+        let boardString = [];
+        $(document).ready(function () {
+            $("#showBoard").click(function() {
+                var num = $("#numInput").val();
+                $.ajax({
+                    url: '/board',
+                    type: 'GET',
+                    data: {
+                        top: num
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    success:function (data, _, __){
+                        alert('Board go brrr.')
+
+                        for(var i = 0; i < num; i++){
+                            boardString.push("Desk: " + data[i]["deskNumber"] + " Customer: " + data[i]["customerId"] + ";");
+                        }
+                        $("#board").html(boardString + "<br>");
+                    }
+                })
+            })
+        })
+    </script>
+
+    <!--desk-->
+    <script>
+        $(document).ready(function() {
+            $("#useDesk").click(function() {
+                var desk = $("#deskInput").val();
+                let services = [];
+                services[0] = service1Id;
+                services[1] = service2Id;
+                services[2] = service3Id;
+                $.ajax({
+                    type: "PUT",
+                    url: "/desk/" + desk,
+                    data: JSON.stringify(services),
+                    contentType: 'application/json; charset=utf-8',
+                    success: (result, _, __) => {
+                        alert('Call successful.')
+                    }
+                })
+            })
+        })
+    </script>
+
+</head>
+<body>
+<b>This is the official site of The Bruh Bank.</b><br>
+--------------------------------------------------<br>
+Service Id
+<input id ="idInput">
+<button id = "addService" >Request</button>
+<br>
+--------------------------------------------------<br>
+Which desk should call its longest waiting client? <br>
+<input id ="deskInput">
+<button id = "useDesk" >Call</button>
+<br>
+---------------------------------------------------<br>
+<button id = "showServices">Click here to view available services and their IDs.</button>
+<p id = "service1"></p>
+<p id = "service2"></p>
+<p id = "service3"></p><br>
+---------------------------------------------------<br>
+How many
+<input id = "numInput">
+<button id = "showBoard">Click here to view boards.</button>
+<br>
+<div id = "board"></div>
+----------------------------------------------------
+<p></p>
+</body>
+</html>
+
