@@ -1,6 +1,5 @@
 package com.example.demo.requests;
 
-import com.example.demo.db.models.DbQuestionModel;
 import com.example.demo.db.models.DbUserAnswersModel;
 
 import java.io.Serializable;
@@ -12,12 +11,12 @@ public class AddFormRequest implements Serializable {
     private long id;
     private long userId;
     private String name;
-    private List<DbQuestionModel> questions = new ArrayList<>();
+    private String questions;
     private List<DbUserAnswersModel> userAnswers = new ArrayList<>();
 
     public AddFormRequest(){}
 
-    public AddFormRequest(long userId, String name, List<DbQuestionModel> questions, List<DbUserAnswersModel> userAnswers) {
+    public AddFormRequest(long userId, String name, String questions, List<DbUserAnswersModel> userAnswers) {
         this.userId = userId;
         this.name = name;
         this.questions = questions;
@@ -44,11 +43,11 @@ public class AddFormRequest implements Serializable {
         this.name = name;
     }
 
-    public List<DbQuestionModel> getQuestions() {
+    public String getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<DbQuestionModel> questions) {
+    public void setQuestions(String questions) {
         this.questions = questions;
     }
 

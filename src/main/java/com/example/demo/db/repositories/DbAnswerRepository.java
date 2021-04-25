@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DbAnswerRepository extends CrudRepository<DbAnswerModel, Long> {
+    DbAnswerModel findByForm_id(long form_id);
 }

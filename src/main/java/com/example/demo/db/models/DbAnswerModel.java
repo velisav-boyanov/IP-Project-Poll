@@ -12,20 +12,22 @@ public class DbAnswerModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long question_id;
+    private long form_id;
     private String descript;
 
-    public DbAnswerModel(long question_id, String descript) {
-        this.question_id = question_id;
+    public DbAnswerModel(long form_id, String descript) {
+        this.form_id = form_id;
         this.descript = descript;
     }
 
-    public long getQuestion_id() {
-        return question_id;
+    public DbAnswerModel() {}
+
+    public long getForm_id() {
+        return form_id;
     }
 
-    public void setQuestion_id(long question_id) {
-        this.question_id = question_id;
+    public void setForm_id(long form_id) {
+        this.form_id = form_id;
     }
 
     public String getDescript() {

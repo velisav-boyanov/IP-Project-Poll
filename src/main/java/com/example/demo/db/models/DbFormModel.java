@@ -12,34 +12,22 @@ public class DbFormModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long user_id;
     private String name;
     private String uuid;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "form_id", referencedColumnName = "id")
-    private List<DbQuestionModel> questions = new ArrayList<>();
+    private String question;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_id", referencedColumnName = "id")
     private List<DbUserAnswersModel> userAnswers = new ArrayList<>();
 
-    public DbFormModel(String uuid, long user_id, String name, List<DbQuestionModel> questions, List<DbUserAnswersModel> userAnswers) {
-        this.user_id = user_id;
+    public DbFormModel(String uuid, String name, String question, List<DbUserAnswersModel> userAnswers) {
         this.name = name;
-        this.questions = questions;
+        this.question = question;
         this.userAnswers = userAnswers;
         this.uuid = uuid;
     }
 
-
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
+    public DbFormModel() { }
 
     public String getName() {
         return name;
@@ -49,12 +37,12 @@ public class DbFormModel {
         this.name = name;
     }
 
-    public List<DbQuestionModel> getQuestions() {
-        return questions;
+    public String getQuestions() {
+        return question;
     }
 
-    public void setQuestions(List<DbQuestionModel> questions) {
-        this.questions = questions;
+    public void setQuestions(String questions) {
+        this.question = questions;
     }
 
     public List<DbUserAnswersModel> getUserAnswers() {

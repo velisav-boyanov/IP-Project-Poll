@@ -15,4 +15,6 @@ public class AnswerDetailsService {
     public DbAnswerModel addAnswer(DbAnswerModel answer){
         return answerRepository.save(answer);
     }
+
+    public DbAnswerModel getAnswers(long form_id) { return answerRepository.findByForm_id(form_id); }
 }
