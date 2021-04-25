@@ -1,44 +1,39 @@
-package com.example.demo.db.models;
+package com.example.demo.requests;
 
-import javax.persistence.*;
+import com.example.demo.db.models.DbQuestionModel;
+import com.example.demo.db.models.DbUserAnswersModel;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@javax.persistence.Table(name = "Forms")
+public class AddFormRequest implements Serializable {
 
-public class DbFormModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    private long user_id;
+    private long userId;
     private String name;
-    private String uuid;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "form_id", referencedColumnName = "id")
     private List<DbQuestionModel> questions = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "form_id", referencedColumnName = "id")
     private List<DbUserAnswersModel> userAnswers = new ArrayList<>();
 
-    public DbFormModel(String uuid, long user_id, String name, List<DbQuestionModel> questions, List<DbUserAnswersModel> userAnswers) {
-        this.user_id = user_id;
+    public AddFormRequest(){}
+
+    public AddFormRequest(long userId, String name, List<DbQuestionModel> questions, List<DbUserAnswersModel> userAnswers) {
+        this.userId = userId;
         this.name = name;
         this.questions = questions;
         this.userAnswers = userAnswers;
-        this.uuid = uuid;
     }
 
-
-    public long getUser_id() {
-        return user_id;
+    public long getId() {
+        return id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getName() {

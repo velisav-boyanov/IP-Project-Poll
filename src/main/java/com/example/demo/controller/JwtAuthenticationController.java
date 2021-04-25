@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import com.example.demo.db.models.DbUserModel;
 import com.example.demo.db.repositories.DbUserRepository;
@@ -22,8 +21,8 @@ import com.example.demo.service.JwtUserDetailsService;
 
 
 import com.example.demo.config.JwtTokenUtil;
-import com.example.demo.model.JwtRequest;
-import com.example.demo.model.JwtResponse;
+import com.example.demo.requests.JwtRequest;
+import com.example.demo.requests.JwtResponse;
 
 @RestController
 @CrossOrigin
